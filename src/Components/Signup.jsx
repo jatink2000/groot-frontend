@@ -1,18 +1,62 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Signup() {
 
 
-   let [signdata,setsigndata]= useState([])
+    let [signdata, setsigndata] = useState([])
 
-   let inputvalue=(e)=>{
-    setsigndata(
-        {...logindata,[e.target.name]:e.target.value}
-    )
-   }
+    let inputvalue = (e) => {
+        setsigndata(
+            { ...signdata, [e.target.name]: e.target.value }
+        )
+    }
+
+    let go = useNavigate()
 
 
-   console.log(signdata)
+    //    allusers ---------------
+    let [already, setalready] = useState([])
+    useEffect(() => {
+        allusers()
+    }, [])
+
+    let allusers = () => {
+        axios.get("http://localhost:5000/allusers").then((res) => {
+            if (res.data.status) {
+                setalready(res.data.ourusers)
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+
+
+    let signupbtn = () => {
+
+        let filterdata = already.filter(item => item.email == signdata.email)
+        let existuser = filterdata[0]
+
+        if (existuser) {
+            alert("already")
+        }
+        else {
+            axios.post("http://localhost:5000/signup", { signdata }).then((res) => {
+                if (res.data.status) {
+                    alert(res.data.msg)
+                    go("/")
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
+
+
+    }
+
 
     return (
         <>
@@ -29,7 +73,7 @@ function Signup() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <div className="space-y-6">
                         <div>
                             <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                                 Username
@@ -38,7 +82,7 @@ function Signup() {
                                 <input onChange={inputvalue}
                                     id="text"
                                     name="Username"
-                                    type="email"
+                                    type="text"
                                     required
                                     autoComplete="Username"
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -70,7 +114,7 @@ function Signup() {
                                 </label>
                             </div>
                             <div className="mt-2">
-                                <input onChange={inputvalue}    
+                                <input onChange={inputvalue}
                                     id="password"
                                     name="password"
                                     type="password"
@@ -83,13 +127,13 @@ function Signup() {
 
                         <div>
                             <button
-                                type="submit"
+                                onClick={signupbtn}
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Sign in
+                                Sign Up
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
