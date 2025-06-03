@@ -1,20 +1,29 @@
-body{
-    background-color: rgb(229, 228, 228);
+body {
+    background-color: rgba(234, 234, 234, 0.637);
 }
+
+.sign{
+   display: grid;
+  place-items: center;     /* Shortcut for both justify and align */
+  height: 100vh;
+}
+
 
 
 
 .login{
-    width: 40%;
+    width: 400px;
     margin: auto;
-    background: white;
     border-radius: 20px;
+    border: 0.1rem solid black;
+    font-family: "PT Serif", serif;
+
 }
 
-input{
+input {
     border: 1px solid rgb(45, 45, 45);
 }
 
-input:focus{
+input:focus {
     border: none;
 }
