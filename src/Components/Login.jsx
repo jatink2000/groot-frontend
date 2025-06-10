@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 function Login() {
     let [logindata, setlogin] = useState([])
-   let go= useNavigate()
+    let go = useNavigate()
 
     let inputvalue = (e) => {
         setlogin(
@@ -14,10 +14,14 @@ function Login() {
 
 
     //    allusers ---------------
+
     let [already, setalready] = useState([])
+
     useEffect(() => {
         allusers()
     }, [])
+
+
     let allusers = () => {
         axios.get("http://localhost:5000/allusers").then((res) => {
             if (res.data.status) {
@@ -28,21 +32,25 @@ function Login() {
         })
     }
 
-    let login=()=>{
-        let existuser=already.filter(data=> data.email==logindata.email)
-        let ouruser=existuser[0]
-        
-        if(!ouruser){
+    let login = () => {
+        let existuser = already.filter(data => data.email == logindata.email)
+        let ouruser = existuser[0]
+
+        if (!ouruser) {
             alert("not a user")
         }
-        else if(ouruser.email==logindata.email && ouruser.password==logindata.password){
+
+        else if (ouruser.email == logindata.email && ouruser.password == logindata.password) {
             alert("login")
             go("/home")
         }
-        else{
+
+        else {
             alert("invalid user")
         }
     }
+
+    
     return (
         <>
             <div className='sign'>
@@ -82,7 +90,7 @@ function Login() {
                                         Password
                                     </label>
                                     <div className="text-sm">
-                                        <Link to={"/password"} className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                        <Link to={"/Forgotpassword"} className="font-semibold text-indigo-600 hover:text-indigo-500">
                                             Forgot password?
                                         </Link>
                                     </div>

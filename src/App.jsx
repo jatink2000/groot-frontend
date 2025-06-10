@@ -4,8 +4,9 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './Components/Login'
 import Signup from './Components/Signup'
-import Home from './Pages/Home/Home'
+import Home from './Components/Home'
 import Password from './Pages/password/Password'
+import Addproduct from './admin/components/Addproduct'
 
 function App() {
 
@@ -17,7 +18,8 @@ function App() {
         <Route path='/' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/home' element={<Home/>}/>
-        <Route path='/password' element={<Password/>}/>
+        <Route path='/Forgotpassword' element={<Password/>}/>
+        <Route path='/addproduct' element={<Addproduct/>}/>
 
 
       </Routes>
@@ -25,5 +27,4 @@ function App() {
     </>
   )
 }
-
 export default App
